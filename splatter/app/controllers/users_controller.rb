@@ -54,6 +54,36 @@ class UsersController < ApplicationController
 		render json: @user.splatts
 	end
 	
+	def show_follows
+		@user = User.find(params[:id])
+		
+		@user.follows
+	end
+	
+	def show_followers
+		@user = User.find(params[:id])
+		
+		@user.followed_by
+	end
+	
+	def add_follows
+		@follower= User.find(params[:id])
+		@followed = User.find(params[:follows_id])          
+		if
+			@follower.follows << @followed
+			head :no_content
+		else
+			render json: @follower.errors, status: :unprocessable_entity
+		end
+	end
+	
+	def delete_follows
+		@follower= User.find(params[:id])
+		@followed = User.find(params[:follows_id])
+		
+		@follower.follows.delete(followed)
+	end
+	
 	private
 	
 	def user_params(params)
