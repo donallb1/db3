@@ -1,4 +1,9 @@
 class User < ActiveRecord::Base
+	
+	####################################################################
+	###############             User Model           ###################
+	####################################################################
+	
 	has_many :splatts
 	
 	has_and_belongs_to_many :follows,
@@ -12,4 +17,15 @@ class User < ActiveRecord::Base
 		join_table: :follows,
 		foreign_key: :followed_id,
 		association_foreign_key: :follower_id
+	
+	validates :name, presence: true,
+	validates :email, uniqueness: { case_sesnitive: false}
+	validates :password, length: {minimum: 8}, if: :strong?
+	
+	def strong?
+		password =~ /.*\d+.*/ && \
+		password =~ /.*[a-z]+.*/ && \
+		password =~ /.*[A-Z].*/
+	end
+	
 end

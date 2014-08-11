@@ -1,4 +1,9 @@
 class UsersController < ApplicationController
+	
+	####################################################################
+	###############          Users Controller        ###################
+	####################################################################
+	
   # GET /users
   # GET /users.json
   def index

@@ -1,4 +1,9 @@
 class SplattsController < ApplicationController
+	
+	####################################################################
+	###############         Splatts Controller       ###################
+	####################################################################
+	
   # GET /splatts
   # GET /splatts.json
   def index
