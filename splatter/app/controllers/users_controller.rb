@@ -72,7 +72,7 @@ class UsersController < ApplicationController
 	end
 	
 	def add_follows
-		@follower= User.find(params[:id])
+		@follower = User.find(params[:id])
 		@followed = User.find(params[:follows_id])          
 		if
 			@follower.follows << @followed
@@ -83,10 +83,10 @@ class UsersController < ApplicationController
 	end
 	
 	def delete_follows
-		@follower= User.find(params[:id])
+		@follower = User.find(params[:id])
 		@followed = User.find(params[:follows_id])
 		
-		@follower.follows.delete(followed)
+		@follower.follows.delete(@followed)
 	end
 	
 	# GET /users.splatts-feed/1
