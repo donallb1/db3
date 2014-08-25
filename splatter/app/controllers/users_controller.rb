@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+	before_filter :set_headers
 	
 	####################################################################
 	###############          Users Controller        ###################
@@ -101,5 +102,9 @@ class UsersController < ApplicationController
 	
 	def user_params(params)
 		params.permit(:email, :password, :name, :blurb)
+	end
+	
+	def set_headers
+		headers['Access-Control-Allow-Origin'] = '*';
 	end
 end
