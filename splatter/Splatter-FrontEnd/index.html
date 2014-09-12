@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html ng-app="splatter-web">
+	<head>
+		<title>Basic Splatter Client</title>
+		<script src="angular.min.js"></script>
+		<script src="angular-resource.js"></script>
+		<script src="app.js"></script>
+	</head>
+	<body>
+		
+	<!----------------------------------------------------------------->
+	<!---------------			Create a User			--------------->
+	<!----------------------------------------------------------------->
+	
+	<div ng-controller="AddUserController as form">
+		<h1>Create a Account</h1>
+		
+		<form ng-submit="form.createUser()" name="AddUsersForm">
+			<table>
+				<tr>
+					<td>UserName:</td><td><input ng-model="form.data.userName" type = "text" name = "userName" placeholder = "Johnny22"></td>
+				</tr>
+				<tr>
+					<td>Email:</td><td><input ng-model="form.data.email" type = "text" name = "email" placeholder = "Johnny@hotmail.com"></td>
+				</tr>
+				<tr>
+					<td>Password:</td><td><input ng-model="form.data.password" type = "password" name = "password"></td>
+				</tr>
+				<tr>
+					<td><input type = "submit" value = "submit"></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+	<!----------------------------------------------------------------->
+	<!---------------			LogIn a User			--------------->
+	<!----------------------------------------------------------------->
+	
+	<div ng-controller="LogInController as form">
+		<h1>Log In</h1>
+		
+		<form ng-submit="form.logInForm()" name="AddUsersForm" method="post">
+			<table>
+				<tr>
+					<td>UserID:</td><td><input ng-model="form.data.userID" type = "text" name = "userName" placeholder = "27"></td>
+				</tr>
+				<tr>
+					<td><input type = "submit" value = "submit"></td>
+				</tr>
+			</table>
+		</form>
+		<p>{{form.user.name}}</p>
+		<p>{{form.user.email}}</p>
+	</div>
+	
+	<!----------------------------------------------------------------->
+	<!---------------			Edit a User				--------------->
+	<!----------------------------------------------------------------->
+	
+	<div ng-controller="EditUserController as form">
+
+		<h1>Edit User</h1>
+		<form  ng-submit="form.EditUser()" name="EdiForm" method="post">
+	
+		<table>			
+			<tr>
+				<td>User ID:</td>
+				<td><input ng-model="form.data.userid" type="text" placeholder="14"/></td>
+			</tr>
+			<tr>
+				<td>New Name:</td>
+				<td><input ng-model="form.data.name" type="text" placeholder="Thomas Edwards"/></td>
+			</tr>
+			<tr>
+				<td>New Blurb:</td>
+				<td><input ng-model="form.data.blurb" type="text" placeholder="Love playing Sports"/></td>
+			</tr>
+			<tr>
+				<td><input type="submit" value="Edit User"/></td>
+			</tr>
+		</table>
+	</form>
+		<p>{{form.user.userid}}</p>
+		<p>{{form.user.name}}</p>
+		<p>{{form.user.blurb}}</p>
+	</div>
+	
+	<!----------------------------------------------------------------->
+	<!---------------			Create a Splatt			--------------->
+	<!----------------------------------------------------------------->
+	
+	<div ng-controller="NewSplattController as form">		
+		<h1>New Splatt</h1>
+		<form ng-submit="form.newSplatt()" name="newSplattForm" method="post">
+			<table>
+				<tr>
+					<td>User ID:</td>
+					<td><input ng-model="form.data.userID" type="text" placeholder="22"/></td>
+				</tr>
+				<tr>
+					<td>Splatt Message:</td>
+					<td><input ng-model="form.data.message" type="text" placeholder="I'm Happy"/></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Create Splatt"/></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+	<!----------------------------------------------------------------->
+	<!---------------			Display Splatts			--------------->
+	<!----------------------------------------------------------------->
+	
+	<div ng-controller="DisplaySplattsController as form">		
+		<h1>Display Users Splatts</h1>
+		<form  ng-submit="form.findSplatts()" name="RetriveSplattsForm" method="post">
+			<table>			
+					<tr>
+						<td>User ID:</td>
+						<td><input ng-model="form.data.userid" type="text" placeholder="22"/></td>
+					</tr>
+					<tr>
+						<td><input type="submit" value="View My Splatts"/></td>
+					</tr>
+			</table>
+		</form>
+		<div ng-repeat="splatt in form.splatts">
+			<b>Date Posted: {{splatt.created_at}} User: {{form.user.name}} Splatt Message: {{splatt.body}}</b>
+		</div>
+	</div>
+	
+	<!----------------------------------------------------------------->
+	<!---------------			Follow a User			--------------->
+	<!----------------------------------------------------------------->
+	
+	<div ng-controller="followUserController as form">		
+		<h1>Follow a User</h1>
+		<form ng-submit="form.followUser()" name="followaUserForm" method="post">
+			<table>
+				<tr>
+					<td>Your User ID:</td>
+					<td><input ng-model="form.data.userID" type="text" placeholder="25"/></td>
+				</tr>
+				<tr>
+					<td>Follower ID:</td>
+					<td><input ng-model="form.data.followerID" type="text" placeholder="16"/></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Follow User"/></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+	<!----------------------------------------------------------------->
+	<!---------------			Unfollow a User			--------------->
+	<!----------------------------------------------------------------->
+	
+	<div ng-controller="unfollowUserController as form">		
+	<h1>UnFollow a User</h1>
+		<form ng-submit="form.unfollowUser()" name="unfollowaUserForm" method="post">
+			<table>
+				<tr>
+					<td>Your User ID:</td>
+					<td><input ng-model="form.data.userID" type="text" placeholder="25"/></td>
+				</tr>
+				<tr>
+					<td>Follower ID:</td>
+					<td><input ng-model="form.data.followerID" type="text" placeholder="16"/></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Un-Follow This Person"/></td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+	<!----------------------------------------------------------------->
+	<!---------------			Delete a User			--------------->
+	<!----------------------------------------------------------------->
+	
+	<div ng-controller="DeleteUserController as form">		
+	<h1>Delete a User</h1>
+		<form ng-submit="form.DeleteUser()" name="DeleteUserForm" method="post">
+			<table>
+				<tr>
+					<td>User ID</td>
+					<td><input ng-model="form.data.userDeleteID" type="text" placeholder="42"/></td>
+				</tr>
+				<tr>
+					<td><input type="submit" value="Delete User"/></td>
+				</tr>
+			</table>
+		</form>
+	</div>	
+	</body>
+</html>
+
