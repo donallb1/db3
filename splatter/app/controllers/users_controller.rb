@@ -73,13 +73,13 @@ class UsersController < ApplicationController
 	end
 	
 	def add_follows
-		@follower = User.find(params[:id])
-		@followed = User.find(params[:follows_id])          
-		if
-			@follower.follows << @followed
+		@user = User.find(params[:id])
+		@follows = User.find(params[:follows_id])
+		if @user.follows << @follows and @follows.followers << @user
 			head :no_content
+			render json: @user.follows
 		else
-			render json: @follower.errors, status: :unprocessable_entity
+			render json: @user.errors, status: :unprocessable_entity
 		end
 	end
 	
