@@ -75,8 +75,8 @@ class UsersController < ApplicationController
 	def add_follows
 		@user = User.find(params[:id])
 		@follows = User.find(params[:follows_id])
+		
 		if @user.follows << @follows and @follows.followers << @user
-			head :no_content
 			render json: @user.follows
 		else
 			render json: @user.errors, status: :unprocessable_entity
@@ -84,10 +84,15 @@ class UsersController < ApplicationController
 	end
 	
 	def delete_follows
-		@follower = User.find(params[:id])
-		@followed = User.find(params[:follows_id])
+		@user = User.find(params[:id])
+		@follows = User.find(params[:follows_id])
 		
-		@follower.follows.delete(@followed)
+		
+		if @user.follows.delete(@follows) and @follows.followers.delete(@user)
+			render json: @user.follows
+		else
+			render json: @user.errors, status: :unprocessable_entity
+		end
 	end
 	
 	# GET /users.splatts-feed/1
