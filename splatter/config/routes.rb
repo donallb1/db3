@@ -9,6 +9,8 @@ Splatter::Application.routes.draw do
   delete 'users/follows/:id/:follows_id' => 'users#delete_follows'
   get 'users/splatts-feed/:id' => 'users#splatts_feed'
   
+  get 'users/:id' => 'users#show', :constraints => {:id=> / [0-9a-zA-Z\-\.\@]+/}
+  
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
