@@ -78,13 +78,14 @@ class UsersController < ApplicationController
 	end
 	
 	def add_follows
-		@follower = User.find(params[:id])
-		@followed = User.find(params[:follows_id])          
-		if
-			@follower.follows << @followed
+		db = UserRepository.new(Riak::Client.new)
+		@follower = db.find(params[:id])
+		@follower = db.find(params[:follows_id])
+		
+		if db.follow(@follower, @followed)
 			head :no_content
 		else
-			render json: @follower.errors, status: :unprocessable_entity
+			render json: "error saving follow relationship" , status: :unprocessable_entity
 		end
 	end
 	

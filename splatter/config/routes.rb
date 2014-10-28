@@ -1,8 +1,6 @@
 Splatter::Application.routes.draw do
-  resources :splatts
-  resources :users
   
-  get 'users/splatts/:id' => 'users#splatts'
+  get 'users/splatts/:id' => 'users#splatts', :constraints => { :id => /[0-9A-Za-z\-\.\@]+/ }
   get 'users/follows/:id' => 'users#show_follows'
   get 'users/followers/:id' => 'users#show_followers'
   post 'users/follows' => 'users#add_follows'
@@ -10,6 +8,9 @@ Splatter::Application.routes.draw do
   get 'users/splatts-feed/:id' => 'users#splatts_feed'
   
   get 'users/:id' => 'users#show', :constraints => {:id=> / [0-9a-zA-Z\-\.\@]+/}
+  
+  resources :splatts
+  resources :users
   
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

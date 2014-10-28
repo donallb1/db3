@@ -40,4 +40,21 @@ class UserRepository
 	def update(user)
 	
 	end
+	
+	def follow(follower, followed)
+		if follower.follows
+			follower.follows << followed.email
+		else
+			follower.followed = [followed.email]
+		end
+		
+		if followed.followers
+			followed.followers << follow.email
+		else
+			followed.followers = [follow.email]
+		end
+		
+		update(followed)
+		update(follower)
+	end
 end

@@ -1,7 +1,5 @@
-class Splatt < ActiveRecord::Base
-	
-	####################################################################
-	###############           Splatt Model           ###################
-	####################################################################
-  belongs_to :user
+class Splatt < Hashie::Dash
+	property :id
+	property :body
+	property	:created_at
 end
