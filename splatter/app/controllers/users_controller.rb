@@ -52,17 +52,18 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   # DELETE /users/1.json
-  def destroy
-    @user = User.find(params[:id])
-    @user.destroy
+	def destroy
+		@user = User.find(params[:id])
+		@user.destroy
 
-    head :no_content
-  end
+		head :no_content
+	end
 	
 	def splatts
-		@user = User.find(params[:id])
-		
-		render json: @user.splatts
+		db = UserRepository.new(Riak::Client.new)
+		@user = db.find(params[:id])
+		db = SplattRepository.new(Riak::Client.new, @user)
+		render json: db.all
 	end
 	
 	def show_follows
@@ -90,10 +91,15 @@ class UsersController < ApplicationController
 	end
 	
 	def delete_follows
-		@follower = User.find(params[:id])
-		@followed = User.find(params[:follows_id])
+		db = UserRepository.new(Riak::Client.new)
+		@follower = db.find(params[:id])
+		@follower = db.find(params[:follows_id])
 		
-		@follower.follows.delete(@followed)
+		if db.unfollow(@follower, @followed)
+			head :no_content
+		else
+			render json: "error saving follow relationship" , status: :unprocessable_entity
+		end
 	end
 	
 	# GET /users.splatts-feed/1

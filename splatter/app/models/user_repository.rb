@@ -57,4 +57,21 @@ class UserRepository
 		update(followed)
 		update(follower)
 	end
+	
+	def follow(follower, followed)
+		if follower.follows
+			follower.follows.delete(followed.email)
+		else
+			follower.followed = [followed.email]
+		end
+		
+		if followed.followers
+			followed.followers.delete(follow.email)
+		else
+			followed.followers = [follow.email]
+		end
+		
+		update(followed)
+		update(follower)
+	end
 end
