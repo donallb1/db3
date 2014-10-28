@@ -58,7 +58,7 @@ class UserRepository
 		update(follower)
 	end
 	
-	def follow(follower, followed)
+	def unfollow(follower, followed)
 		if follower.follows
 			follower.follows.delete(followed.email)
 		else
